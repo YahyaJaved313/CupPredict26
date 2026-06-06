@@ -1,0 +1,61 @@
+[
+  {"name": "United States", "code": "USA", "group": "A", "rank": 13, "attack": 82, "defense": 80},
+  {"name": "Colombia", "code": "COL", "group": "A", "rank": 14, "attack": 83, "defense": 82},
+  {"name": "Poland", "code": "POL", "group": "A", "rank": 28, "attack": 78, "defense": 74},
+  {"name": "Morocco", "code": "MAR", "group": "A", "rank": 12, "attack": 82, "defense": 85},
+
+  {"name": "Mexico", "code": "MEX", "group": "B", "rank": 15, "attack": 79, "defense": 78},
+  {"name": "Germany", "code": "GER", "group": "B", "rank": 16, "attack": 89, "defense": 82},
+  {"name": "Japan", "code": "JPN", "group": "B", "rank": 18, "attack": 84, "defense": 81},
+  {"name": "Cameroon", "code": "CMR", "group": "B", "rank": 46, "attack": 73, "defense": 71},
+
+  {"name": "Canada", "code": "CAN", "group": "C", "rank": 40, "attack": 77, "defense": 72},
+  {"name": "Portugal", "code": "POR", "group": "C", "rank": 7, "attack": 92, "defense": 86},
+  {"name": "South Korea", "code": "KOR", "group": "C", "rank": 22, "attack": 80, "defense": 76},
+  {"name": "Senegal", "code": "SEN", "group": "C", "rank": 17, "attack": 81, "defense": 80},
+
+  {"name": "Argentina", "code": "ARG", "group": "D", "rank": 1, "attack": 95, "defense": 93},
+  {"name": "Netherlands", "code": "NED", "group": "D", "rank": 6, "attack": 88, "defense": 87},
+  {"name": "Australia", "code": "AUS", "group": "D", "rank": 24, "attack": 75, "defense": 76},
+  {"name": "Tunisia", "code": "TUN", "group": "D", "rank": 35, "attack": 70, "defense": 73},
+
+  {"name": "France", "code": "FRA", "group": "E", "rank": 2, "attack": 96, "defense": 91},
+  {"name": "Croatia", "code": "CRO", "group": "E", "rank": 10, "attack": 82, "defense": 84},
+  {"name": "Ecuador", "code": "ECU", "group": "E", "rank": 31, "attack": 77, "defense": 79},
+  {"name": "Saudi Arabia", "code": "KSA", "group": "E", "rank": 53, "attack": 70, "defense": 68},
+
+  {"name": "Brazil", "code": "BRA", "group": "F", "rank": 5, "attack": 93, "defense": 89},
+  {"name": "Switzerland", "code": "SUI", "group": "F", "rank": 19, "attack": 79, "defense": 81},
+  {"name": "Iran", "code": "IRN", "group": "F", "rank": 20, "attack": 78, "defense": 75},
+  {"name": "Ghana", "code": "GHA", "group": "F", "rank": 60, "attack": 72, "defense": 70},
+
+  {"name": "England", "code": "ENG", "group": "G", "rank": 4, "attack": 94, "defense": 89},
+  {"name": "Uruguay", "code": "URU", "group": "G", "rank": 11, "attack": 86, "defense": 84},
+  {"name": "Denmark", "code": "DEN", "group": "G", "rank": 21, "attack": 80, "defense": 80},
+  {"name": "Egypt", "code": "EGY", "group": "G", "rank": 36, "attack": 76, "defense": 74},
+
+  {"name": "Spain", "code": "ESP", "group": "H", "rank": 3, "attack": 92, "defense": 91},
+  {"name": "Belgium", "code": "BEL", "group": "H", "rank": 8, "attack": 86, "defense": 82},
+  {"name": "Ukraine", "code": "UKR", "group": "H", "rank": 26, "attack": 79, "defense": 77},
+  {"name": "Nigeria", "code": "NGA", "group": "H", "rank": 30, "attack": 81, "defense": 75},
+
+  {"name": "Italy", "code": "ITA", "group": "I", "rank": 9, "attack": 83, "defense": 88},
+  {"name": "Chile", "code": "CHI", "group": "I", "rank": 42, "attack": 74, "defense": 75},
+  {"name": "Algeria", "code": "ALG", "group": "I", "rank": 33, "attack": 77, "defense": 76},
+  {"name": "Uzbekistan", "code": "UZB", "group": "I", "rank": 64, "attack": 70, "defense": 69},
+
+  {"name": "Austria", "code": "AUT", "group": "J", "rank": 25, "attack": 79, "defense": 79},
+  {"name": "Sweden", "code": "SWE", "group": "J", "rank": 23, "attack": 80, "defense": 78},
+  {"name": "Qatar", "code": "QAT", "group": "J", "rank": 38, "attack": 72, "defense": 70},
+  {"name": "Panama", "code": "PAN", "group": "J", "rank": 44, "attack": 71, "defense": 72},
+
+  {"name": "Serbia", "code": "SRB", "group": "K", "rank": 32, "attack": 78, "defense": 75},
+  {"name": "Wales", "code": "WAL", "group": "K", "rank": 29, "attack": 75, "defense": 76},
+  {"name": "Peru", "code": "PER", "group": "K", "rank": 45, "attack": 72, "defense": 74},
+  {"name": "Costa Rica", "code": "CRC", "group": "K", "rank": 52, "attack": 71, "defense": 73},
+
+  {"name": "Turkey", "code": "TUR", "group": "L", "rank": 35, "attack": 80, "defense": 76},
+  {"name": "Hungary", "code": "HUN", "group": "L", "rank": 27, "attack": 77, "defense": 77},
+  {"name": "New Zealand", "code": "NZL", "group": "L", "rank": 104, "attack": 64, "defense": 65},
+  {"name": "Mali", "code": "MLI", "group": "L", "rank": 47, "attack": 73, "defense": 72}
+]

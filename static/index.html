@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CupPredict 2026 - FIFA World Cup Simulator & Data Forecast</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Chart.js CDN for interactive visualizations -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- Loading overlay for background simulations -->
+  <div id="loader-overlay" class="loader-overlay">
+    <div class="spinner"></div>
+    <div class="loader-text" id="loader-text">Running Monte Carlo Simulations...</div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast">
+    <span id="toast-icon">✓</span>
+    <span id="toast-message">Simulation completed successfully!</span>
+  </div>
+
+  <!-- Universal Navigation Bar -->
+  <nav class="universal-nav">
+    <div class="nav-container">
+      <div class="nav-brand" id="btn-brand-home">
+        CUPPREDICT<span>26</span>
+      </div>
+      <div class="nav-links">
+        <a href="#about" class="landing-nav-link">About</a>
+        <a href="#today" class="landing-nav-link">Today's Matches</a>
+        <a href="#quick-sim" class="landing-nav-link">Quick Predictor</a>
+        <button id="btn-launch-sim-nav" class="btn btn-nav-cta">Launch Simulator Workspace</button>
+        <button id="btn-about-me-nav" class="btn btn-nav-about">About Me</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- VIEW 1: LANDING PAGE -->
+  <div id="landing-page">
+    
+    <!-- Hero Section (Android Style) -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <div class="hero-tag">Stanford Code in Place 2026</div>
+        <h1 class="hero-title">Predicting the Future of Football</h1>
+        <p class="hero-desc">
+          Experience the 48-team 2026 FIFA World Cup through data science. Run 10,000 Monte Carlo simulations in seconds and customize team attributes in our interactive sandbox.
+        </p>
+        <div class="hero-ctas">
+          <button id="btn-launch-sim" class="btn btn-primary btn-large">Launch Full Simulator</button>
+          <a href="#quick-sim" class="btn btn-secondary btn-large landing-nav-link">Try Quick Predictor</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Today's Matches Ticker (June 6, 2026) -->
+    <section id="today" class="landing-section matches-section">
+      <div class="section-container">
+        <div class="section-header">
+          <h2 class="section-title">Matches Scheduled Today</h2>
+          <p class="section-subtitle">June 6, 2026 • Group Stage Opening Fixtures</p>
+        </div>
+        
+        <div class="today-fixtures-grid">
+          <!-- Fixture 1: USA vs Morocco -->
+          <div class="fixture-card" id="fixture-usa-mar">
+            <div class="fixture-header">Group A Opener</div>
+            <div class="fixture-body">
+              <div class="fixture-team">
+                <img src="https://flagcdn.com/w40/us.png" class="flag-icon" alt="USA">
+                <span class="fixture-name">United States</span>
+              </div>
+              <div class="fixture-score-wrapper">
+                <div class="fixture-score" id="score-usa-mar">VS</div>
+              </div>
+              <div class="fixture-team">
+                <span class="fixture-name">Morocco</span>
+                <img src="https://flagcdn.com/w40/ma.png" class="flag-icon" alt="MAR">
+              </div>
+            </div>
+            <button class="btn btn-secondary btn-sm simulate-fixture-btn" data-team1="USA" data-team2="MAR" data-score-id="score-usa-mar">
+              Simulate Match
+            </button>
+          </div>
+
+          <!-- Fixture 2: Mexico vs Japan -->
+          <div class="fixture-card" id="fixture-mex-jpn">
+            <div class="fixture-header">Group B Opener</div>
+            <div class="fixture-body">
+              <div class="fixture-team">
+                <img src="https://flagcdn.com/w40/mx.png" class="flag-icon" alt="MEX">
+                <span class="fixture-name">Mexico</span>
+              </div>
+              <div class="fixture-score-wrapper">
+                <div class="fixture-score" id="score-mex-jpn">VS</div>
+              </div>
+              <div class="fixture-team">
+                <span class="fixture-name">Japan</span>
+                <img src="https://flagcdn.com/w40/jp.png" class="flag-icon" alt="JPN">
+              </div>
+            </div>
+            <button class="btn btn-secondary btn-sm simulate-fixture-btn" data-team1="MEX" data-team2="JPN" data-score-id="score-mex-jpn">
+              Simulate Match
+            </button>
+          </div>
+
+          <!-- Fixture 3: Canada vs Senegal -->
+          <div class="fixture-card" id="fixture-can-sen">
+            <div class="fixture-header">Group C Opener</div>
+            <div class="fixture-body">
+              <div class="fixture-team">
+                <img src="https://flagcdn.com/w40/ca.png" class="flag-icon" alt="CAN">
+                <span class="fixture-name">Canada</span>
+              </div>
+              <div class="fixture-score-wrapper">
+                <div class="fixture-score" id="score-can-sen">VS</div>
+              </div>
+              <div class="fixture-team">
+                <span class="fixture-name">Senegal</span>
+                <img src="https://flagcdn.com/w40/sn.png" class="flag-icon" alt="SEN">
+              </div>
+            </div>
+            <button class="btn btn-secondary btn-sm simulate-fixture-btn" data-team1="CAN" data-team2="SEN" data-score-id="score-can-sen">
+              Simulate Match
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Alternating Info Blocks (Android Website Style) -->
+    <section id="about" class="landing-section alternate-section bg-white">
+      <div class="block-container">
+        <!-- Block 1: Left Text, Right Graphics (Poisson goals model) -->
+        <div class="side-block">
+          <div class="side-block-text">
+            <h3>The Science: Poisson Goals Model</h3>
+            <p>
+              In football, goals scored follow a Poisson probability distribution. We calculate expected goals (&lambda;) by mapping each team's custom Attack Rating against the opponent's Defense Rating, scaled against historical tournament scoring averages.
+            </p>
+            <ul class="feature-list">
+              <li><strong>Dynamic Multipliers:</strong> Translates skill ratings (10-99) to Poisson coefficients.</li>
+              <li><strong>Stateful Math:</strong> Pure Python simulation runs natively on our FastAPI server.</li>
+              <li><strong>Host Advantage:</strong> Accounts for home-field morale boosts for hosts (USA, Canada, Mexico).</li>
+            </ul>
+          </div>
+          <div class="side-block-visual">
+            <div class="math-demo-card">
+              <div class="math-team-row">
+                <span style="display: flex; align-items: center; gap: 6px;"><img src="https://flagcdn.com/w20/us.png" class="flag-icon" style="width: 20px; height: auto;" alt="USA"> USA (Attack: 82)</span>
+                <span style="color: var(--secondary); font-weight: 700;">x</span>
+                <span style="display: flex; align-items: center; gap: 6px;"><img src="https://flagcdn.com/w20/ma.png" class="flag-icon" style="width: 20px; height: auto;" alt="MAR"> Morocco (Defense: 85)</span>
+              </div>
+              <div class="math-arrow">↓</div>
+              <div class="math-formula">
+                Expected Goals (&lambda;<sub>USA</sub>) = <span class="math-highlight">1.28</span>
+              </div>
+              <div class="math-arrow">↓</div>
+              <div class="math-score-box">Simulated Goals: <span class="math-highlight bold">2</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Block 2: Right Text, Left Graphics (Monte Carlo) -->
+        <div class="side-block reverse">
+          <div class="side-block-text">
+            <h3>10,000 World Cups in Seconds</h3>
+            <p>
+              Predicting a single match is exciting, but predicting a tournament requires statistics. By running thousands of Monte Carlo simulations, we compile the survival rate and championship odds for every team.
+            </p>
+            <ul class="feature-list">
+              <li><strong>Tie-Breaking Rules:</strong> Models group stage standings, 3rd-place wildcards, and penalty shootouts.</li>
+              <li><strong>Statistical Forecasts:</strong> Compiles tournament probabilities to outline clear progression curves.</li>
+              <li><strong>Instant Results:</strong> Pure Python calculations complete 1,000 simulations in under a second.</li>
+            </ul>
+          </div>
+          <div class="side-block-visual">
+            <div class="monte-carlo-visual-box">
+              <div class="sim-counter-row">
+                <span class="sim-label">Simulations Run:</span>
+                <span class="sim-counter" id="landing-sim-counter">10,000</span>
+              </div>
+              <div class="mini-leaderboard">
+                <div class="mini-leaderboard-row"><span style="display: flex; align-items: center; gap: 6px;">1. <img src="https://flagcdn.com/w20/ar.png" class="flag-icon" style="width: 20px; height: auto;" alt="ARG"> ARG</span><span class="bold">14.8%</span></div>
+                <div class="mini-leaderboard-row"><span style="display: flex; align-items: center; gap: 6px;">2. <img src="https://flagcdn.com/w20/fr.png" class="flag-icon" style="width: 20px; height: auto;" alt="FRA"> FRA</span><span class="bold">13.2%</span></div>
+                <div class="mini-leaderboard-row"><span style="display: flex; align-items: center; gap: 6px;">3. <img src="https://flagcdn.com/w20/gb-eng.png" class="flag-icon" style="width: 20px; height: auto;" alt="ENG"> ENG</span><span class="bold">11.6%</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Match Predictor Widget Section -->
+    <section id="quick-sim" class="landing-section bg-light">
+      <div class="section-container quick-predictor-container">
+        <div class="section-header">
+          <h2 class="section-title">Quick Match Predictor</h2>
+          <p class="section-subtitle">Select any two World Cup teams and run an instant head-to-head simulation</p>
+        </div>
+
+        <div class="quick-predictor-widget">
+          <div class="predictor-controls">
+            <!-- Team 1 -->
+            <div class="team-select-col">
+              <label for="select-team1">Team A</label>
+              <select id="select-team1" class="btn select-input select-predictor">
+                <!-- Filled dynamically -->
+              </select>
+              <div class="team-predictor-rating" id="rating-team1">Attack: -- | Defense: --</div>
+            </div>
+
+            <div class="vs-text">VS</div>
+
+            <!-- Team 2 -->
+            <div class="team-select-col">
+              <label for="select-team2">Team B</label>
+              <select id="select-team2" class="btn select-input select-predictor">
+                <!-- Filled dynamically -->
+              </select>
+              <div class="team-predictor-rating" id="rating-team2">Attack: -- | Defense: --</div>
+            </div>
+          </div>
+
+          <!-- Predictor Scoreboard -->
+          <div class="predictor-result" id="predictor-result-box" style="display: none;">
+            <div class="predictor-score-row">
+              <span class="pred-team-name" id="pred-team1-name">United States</span>
+              <span class="pred-score" id="pred-goals">0 - 0</span>
+              <span class="pred-team-name" id="pred-team2-name">Morocco</span>
+            </div>
+            <div class="pred-shootout-text" id="pred-shootout-score" style="display: none;">
+              (4 - 2 pens)
+            </div>
+            <div class="pred-winner-banner" id="pred-winner-text">
+              Winner: United States
+            </div>
+          </div>
+
+          <button id="btn-predict-match" class="btn btn-primary btn-large" style="margin: 0 auto; display: block;">
+            Kick Off Match
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stanford Project Info Section -->
+    <section class="landing-section bg-white" style="border-top: 1px solid var(--border-color);">
+      <div class="section-container cip-info-box">
+        <img src="stanford-logo.png" alt="Stanford Logo" style="height: 60px; width: 60px; object-fit: contain; margin-bottom: 8px;">
+        <h3>Stanford Code in Place 2026</h3>
+        <p>
+          This application was built as a final showcase project for the **Code in Place 2026** Python course. 
+          By combining Python's mathematical capabilities (random distribution algorithms, data structuring, and state modeling) with a lightweight web framework, it provides an interactive educational experience in sports analytics and data science.
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-social-icons">
+        <a href="https://www.linkedin.com/in/yahya-javed-142507334/" target="_blank" rel="noopener noreferrer" class="footer-icon-link footer-linkedin" title="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </a>
+        <a href="https://github.com/YahyaJaved313" target="_blank" rel="noopener noreferrer" class="footer-icon-link footer-github" title="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
+            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+          </svg>
+        </a>
+        <a href="https://codeinplace.stanford.edu/cip6/user/I90sLAovyMNPFISDkTuQtjWmMXe2" target="_blank" rel="noopener noreferrer" class="footer-icon-link footer-cip" title="Code in Place" style="background: #ffffff; padding: 4px;">
+          <img src="stanford-logo.png" alt="Code in Place Logo" style="width: 100%; height: 100%; object-fit: contain; border-radius: 50%;">
+        </a>
+      </div>
+      <p>Created by Yahya • Final Project for Stanford Code in Place 2026</p>
+      <p style="font-size: 0.75rem; color: #64748b; margin-top: 6px;">Powered by FastAPI, Python 3.14, and Chart.js</p>
+    </footer>
+
+  </div>
+
+  <!-- VIEW 3: ABOUT ME PAGE -->
+  <div id="about-me-page" style="display: none;">
+    <section class="about-me-hero">
+      <div class="about-me-container">
+        <button id="btn-aboutme-back" class="btn btn-secondary btn-sm" style="align-self: flex-start; margin-bottom: 24px;">← Back to Home</button>
+        <div class="about-me-header">
+          <div class="about-me-tag">CupPredict 2026</div>
+          <h1 class="about-me-title">About the Developer</h1>
+          <p class="about-me-subtitle">Built with passion for football, data science, and Python — as a final project for Stanford's Code in Place 2026.</p>
+        </div>
+
+        <div class="about-me-cards-grid">
+          <!-- LinkedIn Card -->
+          <a href="https://www.linkedin.com/in/yahya-javed-142507334/" target="_blank" rel="noopener noreferrer" class="about-me-card linkedin-card" id="link-linkedin">
+            <div class="about-me-card-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="56" height="56">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+            </div>
+            <h3 class="about-me-card-title">LinkedIn</h3>
+            <p class="about-me-card-desc">Connect with me professionally. View my experience, skills, and career journey.</p>
+            <span class="about-me-card-link">Visit Profile →</span>
+          </a>
+
+          <!-- GitHub Card -->
+          <a href="https://github.com/YahyaJaved313" target="_blank" rel="noopener noreferrer" class="about-me-card github-card" id="link-github">
+            <div class="about-me-card-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="56" height="56">
+                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+              </svg>
+            </div>
+            <h3 class="about-me-card-title">GitHub</h3>
+            <p class="about-me-card-desc">Explore my open-source projects, repositories, and contributions to the developer community.</p>
+            <span class="about-me-card-link">View Repositories →</span>
+          </a>
+
+          <!-- Code in Place Card -->
+          <a href="https://codeinplace.stanford.edu/cip6/user/I90sLAovyMNPFISDkTuQtjWmMXe2" target="_blank" rel="noopener noreferrer" class="about-me-card cip-card" id="link-codeinplace">
+            <div class="about-me-card-icon" style="background: #ffffff; padding: 6px;">
+              <img src="stanford-logo.png" alt="Code in Place Logo" style="width: 100%; height: 100%; object-fit: contain;">
+            </div>
+            <h3 class="about-me-card-title">Code in Place</h3>
+            <p class="about-me-card-desc">View my Stanford Code in Place 2026 profile — the course that inspired this project.</p>
+            <span class="about-me-card-link">View Profile →</span>
+          </a>
+        </div>
+
+        <div class="about-me-footer-note">
+          <p>This project was built as a final showcase for <strong>Stanford Code in Place 2026</strong>. It combines Python (FastAPI, Poisson simulation, Monte Carlo methods) with an interactive JavaScript frontend.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- VIEW 2: SIMULATOR DASHBOARD -->
+  <div id="simulator-dashboard" class="app-container" style="display: none;">
+    
+    <!-- Dashboard Control Header -->
+    <header class="glass-panel">
+      <div class="header-main">
+        <div class="brand">
+          <button id="btn-dashboard-back" class="btn btn-secondary btn-sm" style="padding: 6px 12px; margin-right: 12px; font-family: var(--font-title);">
+            ← Back to Home
+          </button>
+          <div>
+            <h1 class="brand-logo" style="font-size: 1.5rem;">CUPPREDICT 2026</h1>
+            <div class="brand-subtitle" style="font-size: 0.65rem;">Simulation Workspace</div>
+          </div>
+        </div>
+        
+        <div class="controls-bar">
+          <div class="control-item">
+            <label for="host-boost-toggle">Host Advantage Boost</label>
+            <span class="switch">
+              <input type="checkbox" id="host-boost-toggle" checked>
+              <span class="slider"></span>
+            </span>
+          </div>
+          
+          <div class="control-item">
+            <label for="monte-carlo-count">Simulations:</label>
+            <select id="monte-carlo-count" class="select-input">
+              <option value="100">100 Runs</option>
+              <option value="500">500 Runs</option>
+              <option value="1000" selected>1,000 Runs</option>
+              <option value="2000">2,000 Runs</option>
+            </select>
+          </div>
+          
+          <button id="btn-run-forecast" class="btn btn-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            Run Forecast
+          </button>
+          
+          <button id="btn-run-single" class="btn btn-secondary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            Play Tournament
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="tabs-nav">
+      <button class="tab-btn active" data-tab="tab-dashboard" id="nav-dashboard">Monte Carlo Forecast</button>
+      <button class="tab-btn" data-tab="tab-bracket" id="nav-bracket">Live Bracket</button>
+      <button class="tab-btn" data-tab="tab-groups" id="nav-groups">Group Standings</button>
+      <button class="tab-btn" data-tab="tab-sandbox" id="nav-sandbox">What-If Sandbox</button>
+    </nav>
+
+    <!-- TAB: Dashboard Forecast -->
+    <div id="tab-dashboard" class="tab-content active">
+      <div class="dashboard-grid">
+        <!-- Sidebar: Favorites Leaderboard -->
+        <div class="glass-panel favorites-card">
+          <div class="favorites-header">
+            <h2>Championship Forecast</h2>
+            <p style="font-size: 0.8rem; color: var(--text-light); margin-top: 2px;">Probability of winning the trophy</p>
+          </div>
+          <div class="favorites-list" id="favorites-list">
+            <!-- Dynamic list of top favorites -->
+            <p style="color: var(--text-light); text-align: center; margin-top: 40px;">Click "Run Forecast" to calculate probabilities.</p>
+          </div>
+        </div>
+        
+        <!-- Main: Multi-Chart Layout -->
+        <div class="charts-grid-layout">
+          <!-- Top Row: Odds Progression Line Chart -->
+          <div class="glass-panel chart-card line-chart-container">
+            <h2>Round-by-Round Survival Probability</h2>
+            <p style="font-size: 0.8rem; color: var(--text-light);">Odds of reaching each stage of the tournament (Top 6 teams)</p>
+            <div class="chart-container">
+              <canvas id="oddsChart"></canvas>
+            </div>
+            <div class="chart-explanation">
+              <strong>Round-by-Round Survival Probability:</strong> Shows each team's probability of surviving to or past each stage. Notice how lines slope down as the competition gets tougher. A steep drop indicates a difficult round (e.g. facing a powerhouse in the Round of 16).
+            </div>
+          </div>
+          
+          <!-- Bottom Row: Bar & Doughnut Grid -->
+          <div class="charts-bottom-row">
+            <!-- Favorites Bar Chart -->
+            <div class="glass-panel chart-card bar-chart-container">
+              <h2>Championship Win Probability</h2>
+              <p style="font-size: 0.8rem; color: var(--text-light);">Comparing top 8 favorites</p>
+              <div class="chart-container">
+                <canvas id="favoritesChart"></canvas>
+              </div>
+              <div class="chart-explanation">
+                <strong>Championship Win Probability:</strong> Compares the direct percentage chance of the top 8 favorites winning the final match and lifting the trophy. Compiled by counting how many times each team won in 1,000 simulated tournaments.
+              </div>
+            </div>
+            
+            <!-- Group Distribution Doughnut Chart -->
+            <div class="glass-panel chart-card doughnut-chart-container">
+              <h2>Odds Distribution by Group</h2>
+              <p style="font-size: 0.8rem; color: var(--text-light);">Combined winning probability per group (A to L)</p>
+              <div class="chart-container">
+                <canvas id="groupDistributionChart"></canvas>
+              </div>
+              <div class="chart-explanation">
+                <strong>Odds Distribution by Group:</strong> Aggregates the combined championship winning odds of all teams in each group. This helps identify the "Group of Death" (the group with the highest concentration of winning teams).
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: Live Bracket -->
+    <div id="tab-bracket" class="tab-content">
+      <div class="glass-panel" style="padding: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+          <div>
+            <h2 style="font-family: var(--font-title); color: var(--primary-navy);">2026 Knockout Bracket</h2>
+            <p style="font-size: 0.8rem; color: var(--text-light);">Click any match to view simulated match details.</p>
+          </div>
+          <!-- Tournament animation play button -->
+          <button id="btn-animate-bracket" class="btn btn-secondary" style="display: none;">
+            ⚡ Replay Reveal Animation
+          </button>
+        </div>
+        
+        <div class="bracket-wrapper">
+          <div class="bracket-container" id="bracket-container">
+            <!-- Dynamic bracket filled by JS -->
+            <p style="color: var(--text-light); text-align: center; width: 100%; margin-top: 100px;">Click "Play Tournament" to generate a live bracket.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: Group Standings -->
+    <div id="tab-groups" class="tab-content">
+      <div class="groups-container" id="groups-container">
+        <!-- Dynamic groups filled by JS -->
+        <p style="color: var(--text-light); text-align: center; grid-column: 1 / -1; margin-top: 80px;">Click "Play Tournament" to simulate group matches.</p>
+      </div>
+    </div>
+
+    <!-- TAB: What-If Sandbox -->
+    <div id="tab-sandbox" class="tab-content">
+      <div class="sandbox-info-banner">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+        <p>
+          <strong>Welcome to the Sandbox!</strong> Customize the Attack and Defense ratings (10-99) of any team below. 
+          Use the group tabs or presets to edit ratings instantly. Run a forecast in the header to see the statistics update.
+        </p>
+      </div>
+
+      <!-- Sandbox Controls: Filters and Presets -->
+      <div class="sandbox-controls-panel glass-panel">
+        <div class="sandbox-presets-box">
+          <span class="control-box-label">Ratings Presets:</span>
+          <button class="btn btn-secondary btn-sm" id="btn-preset-default">Default Ratings</button>
+          <button class="btn btn-secondary btn-sm" id="btn-preset-chaos">Chaos Mode (Buff Underdogs)</button>
+          <button class="btn btn-secondary btn-sm" id="btn-preset-heavy">Heavyweight Dominance</button>
+        </div>
+        <div class="sandbox-filter-tabs" id="sandbox-filter-tabs">
+          <button class="filter-tab active" data-group="ALL">All Groups</button>
+          <button class="filter-tab" data-group="A">Group A</button>
+          <button class="filter-tab" data-group="B">Group B</button>
+          <button class="filter-tab" data-group="C">Group C</button>
+          <button class="filter-tab" data-group="D">Group D</button>
+          <button class="filter-tab" data-group="E">Group E</button>
+          <button class="filter-tab" data-group="F">Group F</button>
+          <button class="filter-tab" data-group="G">Group G</button>
+          <button class="filter-tab" data-group="H">Group H</button>
+          <button class="filter-tab" data-group="I">Group I</button>
+          <button class="filter-tab" data-group="J">Group J</button>
+          <button class="filter-tab" data-group="K">Group K</button>
+          <button class="filter-tab" data-group="L">Group L</button>
+        </div>
+      </div>
+      
+      <div class="sandbox-grid" id="sandbox-grid">
+        <!-- Dynamic list of editable teams -->
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Match Center Simulation Modal -->
+  <div id="match-modal" class="modal">
+    <div class="modal-content modal-large">
+      <span class="close-btn" id="modal-close">&times;</span>
+      <div class="modal-header" id="modal-match-stage">Group Stage</div>
+      
+      <div class="modal-match-row">
+        <div class="modal-team-side">
+          <div class="modal-badge" id="modal-team1-badge">ARG</div>
+          <div class="modal-team-name" id="modal-team1-name">Argentina</div>
+          <div class="modal-team-rank" id="modal-team1-rank">FIFA #1</div>
+        </div>
+        
+        <div class="modal-score-center">
+          <div class="modal-live-clock" id="modal-live-clock">FT</div>
+          <div class="modal-score-box">
+            <span id="modal-team1-score">0</span> - <span id="modal-team2-score">0</span>
+          </div>
+          <div class="modal-so-text" id="modal-shootout-score" style="display: none;">
+            (4 - 2 pens)
+          </div>
+        </div>
+        
+        <div class="modal-team-side">
+          <div class="modal-badge" id="modal-team2-badge">FRA</div>
+          <div class="modal-team-name" id="modal-team2-name">France</div>
+          <div class="modal-team-rank" id="modal-team2-rank">FIFA #2</div>
+        </div>
+      </div>
+
+      <!-- Live Match Cast Panel (Commentary, possession and shots) -->
+      <div class="live-match-cast" id="live-match-cast">
+        <h3 class="cast-title">Live Match Center</h3>
+        
+        <!-- Live Stats Tickers -->
+        <div class="cast-stats">
+          <div class="stat-label">Ball Possession</div>
+          <div class="live-possession-bar">
+            <div class="possession-team1" id="modal-pos1" style="width: 50%;">50%</div>
+            <div class="possession-team2" id="modal-pos2" style="width: 50%;">50%</div>
+          </div>
+          
+          <div class="live-counters-row">
+            <div class="live-counter-item">Shots: <span id="modal-shots1">0</span></div>
+            <div class="live-counter-label">Attempts</div>
+            <div class="live-counter-item">Shots: <span id="modal-shots2">0</span></div>
+          </div>
+        </div>
+
+        <!-- Scrolling Ticker Logs -->
+        <div class="live-ticker-log" id="modal-ticker-log">
+          <!-- Injected by JS -->
+          <div class="ticker-event">Welcome to the Match Center. Preparing kickoff...</div>
+        </div>
+      </div>
+      
+      <!-- Static ratings details -->
+      <div class="modal-stats" id="modal-static-stats">
+        <h3 style="font-size: 0.85rem; border-bottom: 1px solid var(--border-color); padding-bottom: 6px; margin-bottom: 8px; font-weight: 700; font-family: var(--font-title); color: var(--primary-navy);">Team Skill Matchup</h3>
+        
+        <div class="modal-stat-row">
+          <span class="modal-stat-val" id="modal-team1-att">80</span>
+          <span class="modal-stat-label">Attack Skill</span>
+          <span class="modal-stat-val" id="modal-team2-att">85</span>
+        </div>
+        
+        <div class="modal-stat-row">
+          <span class="modal-stat-val" id="modal-team1-def">82</span>
+          <span class="modal-stat-label">Defense Skill</span>
+          <span class="modal-stat-val" id="modal-team2-def">80</span>
+        </div>
+        
+        <div class="modal-stat-row">
+          <span class="modal-stat-val" id="modal-team1-boost">No</span>
+          <span class="modal-stat-label">Host Advantage Boost</span>
+          <span class="modal-stat-val" id="modal-team2-boost">No</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
